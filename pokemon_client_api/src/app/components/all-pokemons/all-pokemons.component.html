@@ -1,0 +1,14 @@
+<div class="container">
+  <h1 class="text-center">Pokedex v0.1</h1>
+
+  <hr>
+  
+  <div class="ml-5 mr-5">
+
+    <app-poke-card *ngFor="let pokemon of pokemons"
+      [name]="pokemon.name"
+      [url]="pokemon.url">
+    </app-poke-card>
+
+  </div>
+</div>
