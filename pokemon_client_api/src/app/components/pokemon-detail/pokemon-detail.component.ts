@@ -16,7 +16,9 @@ export class PokemonDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient
-  ) { }
+  ) { 
+    this.pokemon = new Pokemon({});
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {

@@ -14,7 +14,7 @@ export class Pokemon{
     this.weight = rawData.weight;
     this.name = rawData.name;
     this.base_experience = rawData.base_experience;
-    this.abilities = rawData.abilities;
+    this.abilities = rawData.abilities || [];
     this.location_area_encounters = rawData.location_area_encounters;
   }
 }

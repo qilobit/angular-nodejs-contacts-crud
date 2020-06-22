@@ -1,12 +1,18 @@
 <div class="container">
   <h1 class="text-center">Pokedex v0.1</h1>
   
-  <div class="ml-5 mr-5">
+  <h3 *ngIf="loading" class="text-center">Loading...</h3>
+  <div *ngIf="!loading" class="ml-5 mr-5">
 
     <app-poke-card *ngFor="let pokemon of pokemons"
       [name]="pokemon.name"
       [url]="pokemon.url">
     </app-poke-card>
 
+  </div>
+
+  <div class="text-center">
+    <button (click)="back()" [disabled]="!previousUrl" class="btn btn-secondary mr-2">Previous page</button>
+    <button (click)="next()" [disabled]="!nextUrl" class="btn btn-secondary">Next page</button>
   </div>
 </div>
