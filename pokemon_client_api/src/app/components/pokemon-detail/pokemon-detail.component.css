@@ -1,0 +1,8 @@
+.card{
+  width: 500px;
+  margin: 0 auto;
+}
+.vscroll{
+  max-height: 200px;
+  overflow-y: auto;
+}
