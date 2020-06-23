@@ -30,11 +30,11 @@
             <br>
           </div>
           <ul class="list-group">
-            <li *ngFor="let phone of contact.phones; let i = index" class="list-group-item">
+            <li *ngFor="let phone of contact.phones; let i = index; trackBy:trackByFn" class="list-group-item">
               <div class="row">
                 <div class="col-8">                    
                   <span *ngIf="!contact.editingPhone">{{ phone }}</span>
-                  <input *ngIf="contact.editingPhone" [disabled]="contact.loading" type="text" [(ngModel)]="contact.phones[i]" class="form-control">
+                  <input *ngIf="contact.editingPhone" type="text" [(ngModel)]="contact.phones[i]" class="form-control">
                 </div>
                 <div class="col-4 text-right">
                   <div *ngIf="!contact.editingPhone">

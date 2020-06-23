@@ -104,7 +104,7 @@ export class ContactCardComponent implements OnInit {
       if(resp.ok){
         this.alertService.toast('Phone updated!', 'success');
         contact.editingPhone = false;
-        
+
       }else{
         this.alertService.error('Error', resp.message);
       }
@@ -134,5 +134,9 @@ export class ContactCardComponent implements OnInit {
         contact.loading = false;
       });
     }
+  }
+
+  trackByFn(index: any, item: any) {
+    return index;
   }
 }
