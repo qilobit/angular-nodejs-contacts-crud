@@ -1,0 +1,4 @@
+{
+  "app_port": 3000,
+  "db_url": "mongodb+srv://admin:sliceoflif3@cluster0-nvwaq.mongodb.net/contacts_crud?retryWrites=true&w=majority"
+}
