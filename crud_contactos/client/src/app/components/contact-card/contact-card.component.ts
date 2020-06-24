@@ -125,10 +125,10 @@ export class ContactCardComponent implements OnInit {
     });
   }
 
-  async deleteContactPhone(phone: Phone){
-    this.contact.loading = true;
+  async deleteContactPhone(phone: Phone){    
     const resp: any = await this.alertService.confirm('This phone will be destroy');
     if(resp.value){
+      this.contact.loading = true;
       this.contactService.deletePhoneFromContact(phone._id)
       .subscribe((resp: any) => {
         if(resp.ok){
