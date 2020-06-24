@@ -4,6 +4,7 @@ const app = express();
 const config = require('./config.json');
 const mongoose = require('mongoose');
 const contactRoutes = require('./routes/contact');
+const phoneRoutes = require('./routes/phone');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,8 +16,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => res.send('<h2>Contactos crud Api</h2>'));
 app.use('/contact', contactRoutes);
+app.use('/phone', phoneRoutes);
+app.get('/', (req, res) => res.send('<h2>Contactos crud Api</h2>'));
 
 mongoose.connect(config.db_url, {
   useFindAndModify: false,

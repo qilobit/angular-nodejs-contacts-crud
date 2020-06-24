@@ -3,6 +3,7 @@ import { Contact } from 'src/app/models/contact.model';
 import { ContactService } from 'src/app/services/contact.service';
 import { AlertService } from 'src/app/services/alert.service';
 import $ from 'jquery';
+import { Phone } from 'src/app/models/phone.model';
 
 @Component({
   selector: 'app-contact-card',
@@ -26,6 +27,15 @@ export class ContactCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.contactService
+    .getPhonesByContact(this.contact._id)
+    .subscribe((phones: Phone[]) => {
+      this.contact.phones = phones;
+    }, (err) => {
+      this.alertService.error('Error', 'Error getting phones');
+      console.log(err);
+      this.contact.loading = false;
+    });
   }
 
   updateContact(contact: Contact){
@@ -81,7 +91,7 @@ export class ContactCardComponent implements OnInit {
       if(resp.ok){
         this.alertService.toast('Phone added to contact!', 'success');
         
-        contact.phones.push( this.newPhone );
+        contact.phones.push( new Phone( resp.data ) );
         this.newPhone = '';
 
         this.hideNewPhonePanel( contact._id );
@@ -98,45 +108,42 @@ export class ContactCardComponent implements OnInit {
     
   }
 
-  updateContactPhone(contact: Contact, phone: string, phoneIndex: number){
-    this.contactService.updatePhone(contact._id, phone, phoneIndex)
+  updateContactPhone(phone: Phone){
+    phone.editing = true;
+    this.contactService.updatePhone(phone.phone_number, phone._id)
     .subscribe((resp: any) => {
       if(resp.ok){
-        this.alertService.toast('Phone updated!', 'success');
-        contact.editingPhone = false;
-
+        this.alertService.toast('Phone updated!', 'success');        
       }else{
         this.alertService.error('Error', resp.message);
       }
-      contact.loading = false;
+      phone.editing = false;
     }, (err) => {
-      this.alertService.error('Error', 'Error removing phone from contact');
+      this.alertService.error('Error', 'Error updating phone');
       console.log(err);
-      contact.loading = false;
+      phone.editing = false;
     });
   }
 
-  async deleteContactPhone(contact: Contact, phone: string){
+  async deleteContactPhone(phone: Phone){
+    this.contact.loading = true;
     const resp: any = await this.alertService.confirm('This phone will be destroy');
     if(resp.value){
-      this.contactService.deletePhoneFromContact(contact._id, phone)
+      this.contactService.deletePhoneFromContact(phone._id)
       .subscribe((resp: any) => {
         if(resp.ok){
           this.alertService.toast('Phone deleted from contact!', 'success');
-          contact.phones = contact.phones.filter(ph => ph != phone);
+          this.contact.phones = this.contact.phones.filter(ph => ph._id != phone._id);
         }else{
           this.alertService.error('Error', resp.message);
         }
-        contact.loading = false;
+        this.contact.loading = false;
       }, (err) => {
         this.alertService.error('Error', 'Error removing phone from contact');
         console.log(err);
-        contact.loading = false;
+        this.contact.loading = false;
       });
     }
   }
 
-  trackByFn(index: any, item: any) {
-    return index;
-  }
 }

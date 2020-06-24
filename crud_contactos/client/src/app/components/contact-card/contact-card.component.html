@@ -2,64 +2,9 @@
   <div class="card-body">
     <div class="row">
       <div class="col-8">
-        <div *ngIf="!contact.editing" class="">
-          <h4 class="card-title">{{ contact.name }}</h4>
-          <hr>
-          <div class="row">
-            <div class="col-8">
-              <h5><i class="fa fa-phone"></i> Phones</h5>
-            </div>
-            <div class="col-4">
-              <button class="btn btn-primary btn-sm mb-2" title="Add new phone" [id]="'open-new-phone-panel-'+contact._id" data-toggle="collapse" [attr.data-target]="'#new-phone-collapse-'+contact._id" aria-expanded="false" aria-controls="new-phone-collapse">
-                <i class="fa fa-plus"></i> Add phone
-              </button>
-            </div>
-          </div>
-          <div class="collapse" [id]="'new-phone-collapse-'+contact._id">
-            <div class="card card-body">
-              <div class="row">
-                <div class="col-8">
-                  <label for="">Phone</label>
-                  <input type="text" [(ngModel)]="newPhone" maxlength="12" class="form-control">
-                </div>
-                <div class="col-4 text-right mt-3">
-                  <button class="btn btn-success" (click)="addPhoneToContact(contact)">Save</button>
-                </div>
-              </div>                
-            </div>
-            <br>
-          </div>
-          <ul class="list-group">
-            <li *ngFor="let phone of contact.phones; let i = index; trackBy:trackByFn" class="list-group-item">
-              <div class="row">
-                <div class="col-8">                    
-                  <span *ngIf="!contact.editingPhone">{{ phone }}</span>
-                  <input *ngIf="contact.editingPhone" type="text" [(ngModel)]="contact.phones[i]" class="form-control">
-                </div>
-                <div class="col-4 text-right">
-                  <div *ngIf="!contact.editingPhone">
-                    <div class="">
-                      <button (click)="contact.editingPhone = true" [disabled]="contact.loading" class="btn btn-warning mr-2 btn-sm" title="Edit phone">
-                        <i class="fa fa-edit"></i>
-                      </button>
-                      <button class="btn btn-danger btn-sm" [disabled]="contact.loading" (click)="deleteContactPhone(contact, phone)" title="Delete phone">
-                        <i class="fa fa-trash"></i>
-                      </button>
-                    </div>
-                  </div>  
-                  <div *ngIf="contact.editingPhone">
-                    <button (click)="contact.editingPhone = false" [disabled]="contact.loading" class="btn btn-secondary mr-2 btn-sm" title="Cancel">
-                      <i class="fa fa-close"></i>
-                    </button>
-                    <button (click)="updateContactPhone(contact, phone, i)" [disabled]="contact.loading" class="btn btn-success btn-sm" title="Update phone">
-                      <i class="fa fa-check"></i>
-                    </button>
-                  </div>        
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>          
+        <a href="#" data-toggle="collapse" [attr.data-target]="'#phones-list-'+contact._id" aria-expanded="false" aria-controls="collapseExample">
+          <h4 *ngIf="!contact.editing" class="card-title">{{ contact.name }}</h4> 
+        </a>                 
         <input *ngIf="contact.editing" [disabled]="contact.loading" type="text" [(ngModel)]="contact.name" class="form-control">
       </div>
       <div class="col-4 text-right">
@@ -83,5 +28,65 @@
         </div>        
       </div>
     </div>
+
+    <!-- Phones list -->
+    <div [id]="'phones-list-'+contact._id" class="collapse show">
+      <hr>
+      <div class="row">
+        <div class="col-8">
+          <h5><i class="fa fa-phone"></i> Phones</h5>
+        </div>
+        <div class="col-4 text-right">
+          <button class="btn btn-primary btn-sm mb-2" title="Add new phone" [id]="'open-new-phone-panel-'+contact._id" data-toggle="collapse" [attr.data-target]="'#new-phone-collapse-'+contact._id" aria-expanded="false" aria-controls="new-phone-collapse">
+            <i class="fa fa-plus"></i> Add phone
+          </button>
+        </div>
+      </div>
+      <div class="collapse" [id]="'new-phone-collapse-'+contact._id">
+        <div class="card card-body">
+          <div class="row">
+            <div class="col-8">
+              <label for="">Phone</label>
+              <input type="text" [(ngModel)]="newPhone" maxlength="12" class="form-control">
+            </div>
+            <div class="col-4 text-right mt-3">
+              <button class="btn btn-success" (click)="addPhoneToContact(contact)">Save</button>
+            </div>
+          </div>                
+        </div>
+        <br>
+      </div>
+      <ul class="list-group">
+        <li *ngFor="let phone of contact.phones" class="list-group-item">
+          <div class="row">
+            <div class="col-8">                    
+              <span *ngIf="!phone.editing">{{ phone.phone_number }}</span>
+              <input *ngIf="phone.editing" type="text" [(ngModel)]="phone.phone_number" maxlength="12" class="form-control">
+            </div>
+            <div class="col-4 text-right">
+              <div *ngIf="!phone.editing">
+                <div class="">
+                  <button (click)="phone.editing = true" [disabled]="phone.loading" class="btn btn-warning mr-2 btn-sm" title="Edit phone">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" [disabled]="phone.loading" (click)="deleteContactPhone(phone)" title="Delete phone">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>  
+              <div *ngIf="phone.editing">
+                <button (click)="phone.editing = false" [disabled]="phone.loading" class="btn btn-secondary mr-2 btn-sm" title="Cancel">
+                  <i class="fa fa-close"></i>
+                </button>
+                <button (click)="updateContactPhone(phone)" [disabled]="phone.loading" class="btn btn-success btn-sm" title="Update phone">
+                  <i class="fa fa-check"></i>
+                </button>
+              </div>        
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </div>
