@@ -4,6 +4,7 @@ const app = express();
 const config = require('./config.json');
 const mongoose = require('mongoose');
 const contactRoutes = require('./routes/contact');
+const PORT = process.env.PORT || config.app_port;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -26,8 +27,8 @@ mongoose.connect(config.db_url, {
 })
 .then(con => {
     
-  app.listen(config.app_port, () => {
-    console.log(`Server running on port ${ config.app_port }`);
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${ PORT }`);
   });
 
 })
