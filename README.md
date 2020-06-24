@@ -7,4 +7,4 @@ Contactos CRUD server:
 https://qilobit-contacts-crud.herokuapp.com/
 
 Contactos CRUD client:
-https://friendly-shockley-47d27b.netlify.app/
+https://fabian-crud-contactos-client.netlify.app/
