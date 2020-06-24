@@ -7,6 +7,7 @@ export class Pokemon{
   public base_experience: number;
   public abilities: any[];
   public location_area_encounters: string;
+  public sprites: any;
 
   constructor(rawData: any){
     this.id = rawData.id;
@@ -16,5 +17,6 @@ export class Pokemon{
     this.base_experience = rawData.base_experience;
     this.abilities = rawData.abilities || [];
     this.location_area_encounters = rawData.location_area_encounters;
+    this.sprites = rawData.sprites;
   }
 }

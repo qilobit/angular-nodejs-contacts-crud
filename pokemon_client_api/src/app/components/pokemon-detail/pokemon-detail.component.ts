@@ -12,6 +12,7 @@ export class PokemonDetailComponent implements OnInit {
   public pokemon: Pokemon;
   public areas: any[] = [];
   public loadingAreas: boolean = false;
+  public pic = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,8 @@ export class PokemonDetailComponent implements OnInit {
           
           this.pokemon = new Pokemon( resp );
 
+          this.pic = this.getPokePic();
+
           this.getLocationAreas(this.pokemon.location_area_encounters);
 
         }, (err) => {
@@ -37,6 +40,10 @@ export class PokemonDetailComponent implements OnInit {
         });
       }
     });
+  }
+
+  getPokePic(): string{
+    return this.pokemon.sprites?.front_default || '';
   }
 
   getLocationAreas(url: string){

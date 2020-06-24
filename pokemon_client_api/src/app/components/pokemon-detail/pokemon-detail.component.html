@@ -6,7 +6,14 @@
   <br>
   <div class="card">
     <div class="card-body">
-      <h2 class="card-title text-center">#{{ pokemon.id }} {{ pokemon.name }}</h2>
+      <div class="row">
+        <div class="col-3">
+          <img [src]="pic" alt="Poke pic">
+        </div>
+        <div class="col-9">
+          <h2 class="card-title text-center mt-3">#{{ pokemon.id }} {{ pokemon.name }}</h2>
+        </div>
+      </div>      
       <div class="row">
         <div class="col-3"><b>Weight: </b>{{ pokemon.weight }}</div>
         <div class="col-3"><b>Height: </b>{{ pokemon.height }}</div>
