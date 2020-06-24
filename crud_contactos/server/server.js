@@ -10,8 +10,12 @@ const PORT = process.env.PORT || config.app_port;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+const allowedOrigin = process.env.NODE_ENV == 'production' ? config.production_client_url : '*';
+
+console.log('==> allowedOrigin: ',allowedOrigin);
+
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // TODO: poner host en produccion
+  res.header("Access-Control-Allow-Origin", allowedOrigin); 
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
